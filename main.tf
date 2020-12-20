@@ -3,8 +3,8 @@ provider "hcloud" {
 }
 
 resource "hcloud_ssh_key" "root" {
-  name = "devops"
-  public_key = file("${path.module}/ssh/key.pub")
+  name       = "devops"
+  public_key = file(var.ssh_public_key)
 }
 
 # Network Setup
@@ -26,7 +26,7 @@ resource "hcloud_server" "master" {
   image       = var.os_image
   server_type = var.master_type
   location    = var.location
-  user_data   = templatefile("${path.module}/user-data/master.tpl", {
+  user_data = templatefile("${path.module}/user-data/master.tpl", {
     ip_range       = var.ip_range
     ssh_public_key = hcloud_ssh_key.root.public_key
     public_domain  = var.public_domain
@@ -34,7 +34,7 @@ resource "hcloud_server" "master" {
     acme_mail      = var.acme_mail
     users          = var.users
   })
-  ssh_keys    = [ hcloud_ssh_key.root.id ]
+  ssh_keys = [hcloud_ssh_key.root.id]
 }
 
 resource "hcloud_server_network" "master_network" {
@@ -55,6 +55,5 @@ resource "hcloud_floating_ip_assignment" "master_floating_ip" {
 
 output "public_ipv4" {
   description = "Public IP address"
-  value = hcloud_floating_ip.public_ip.ip_address
+  value       = hcloud_floating_ip.public_ip.ip_address
 }
-

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # required parameters:
-# PROSODY_USERS = username:pwd;username2:pwd2;... 
+# PROSODY_USERS = username:pwd;username2:pwd2;...
 
 
 # wait till the container is up
