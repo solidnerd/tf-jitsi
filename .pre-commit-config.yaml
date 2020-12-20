@@ -1,0 +1,20 @@
+default_language_version:
+    python: python3
+repos:
+  - repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v3.3.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-case-conflict
+      - id: check-merge-conflict
+
+  - repo: git://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.45.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+        exclude:  examples\/.*$
+      - id: terraform_docs
+        exclude: environments\/.*$
